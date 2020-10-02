@@ -1,3 +1,4 @@
+import 'package:app_example_reply/details_page.dart';
 import 'package:app_example_reply/styling.dart';
 import 'package:app_example_reply/ui/rounded_avatar.dart';
 import 'package:flutter/material.dart';
@@ -82,58 +83,49 @@ class ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ObjectKey(email),
-      dismissThresholds: const {
-        DismissDirection.startToEnd: 1,
-        DismissDirection.endToStart: 0.4
-      },
-      onDismissed: (DismissDirection direction) {
-        switch (direction) {
-          case DismissDirection.endToStart:
-            onDeleted();
-            break;
-          case DismissDirection.startToEnd:
-            break;
-          default:
-        }
-      },
-      background: Container(
-          decoration: BoxDecoration(
-              color: AppTheme.orange,
-              border: Border.all(color: AppTheme.notWhite, width: 2)),
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Image.asset('assets/images/ic_star.png', width: 36)),
-      secondaryBackground: Container(
-          decoration: BoxDecoration(
-              color: AppTheme.dismissibleBackground,
-              border: Border.all(color: AppTheme.notWhite, width: 2)),
-          alignment: Alignment.centerRight,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Image.asset('assets/images/ic_trash.png', width: 36)),
-      child: Padding(
-        padding: const EdgeInsets.all(2),
-        child: Material(
-          color: AppTheme.nearlyWhite,
-          child: InkWell(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-              child: Column(
-                children: [
-                  _header,
-                  if (!email.isRead)
-                    const SizedBox(
-                      height: 14,
-                    ),
-                  if (!email.isRead) _emailPreview
-                ],
-              ),
-            ),
-            onTap: () => Navigator.of(context)
-                .push<void>(DetailsPage.route(context, id, email)),
-          ),
-        ),
-      ),
-    );
+        key: ObjectKey(email),
+        dismissThresholds: const {
+          DismissDirection.startToEnd: 1,
+          DismissDirection.endToStart: 0.4
+        },
+        onDismissed: (DismissDirection direction) {
+          switch (direction) {
+            case DismissDirection.endToStart:
+              onDeleted();
+              break;
+            case DismissDirection.startToEnd:
+              break;
+            default:
+          }
+        },
+        background: Container(
+            decoration: BoxDecoration(
+                color: AppTheme.orange,
+                border: Border.all(color: AppTheme.notWhite, width: 2)),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Image.asset('assets/images/ic_star.png', width: 36)),
+        secondaryBackground: Container(
+            decoration: BoxDecoration(
+                color: AppTheme.dismissibleBackground,
+                border: Border.all(color: AppTheme.notWhite, width: 2)),
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Image.asset('assets/images/ic_trash.png', width: 36)),
+        child: Padding(
+            padding: const EdgeInsets.all(2),
+            child: Material(
+                color: AppTheme.nearlyWhite,
+                child: InkWell(
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 16),
+                        child: Column(children: [
+                          _header,
+                          if (!email.isRead) const SizedBox(height: 14),
+                          if (!email.isRead) _emailPreview
+                        ])),
+                    onTap: () => Navigator.of(context)
+                        .push<void>(DetailsPage.route(context, id, email))))));
   }
 }
